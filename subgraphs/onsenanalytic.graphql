@@ -1,0 +1,166 @@
+type OnsenAnalytic @entity{
+    # id is 0
+    id: ID!
+
+    # total aggregated data for all amms
+    totalVolumeUSD: BigDecimal!
+
+    # total liquidity
+    totalLiquidityUSD: BigDecimal!
+
+    # stats of all amms
+    ammsData: [Amm!]! @derivedFrom(field: "onsenAnalytic")
+
+    # stats for all pairs and tokens (for future aggregations)
+    # pairs: [Pair!]! @derivedFrom(field: "onsenAnalytic")
+    # tokens: [Token!]! @derivedFrom(field: "onsenAnalytic")
+
+    # counters
+    ammCount: BigInt!
+    pairCount: BigInt!
+    tokenCount: BigInt!
+    txCount: BigInt!
+}
+
+type Amm @entity{
+    # exchange name
+    id: ID!
+
+    # total volume
+    totalVolumeUSD: BigDecimal!
+
+    # total liquidity
+    totalLiquidityUSD: BigDecimal!
+
+    # stats for pairs and tokens of this amm
+    pairs: [Pair!]! @derivedFrom(field: "amm")
+    tokens: [Token!]! @derivedFrom(field: "amm")
+
+    # transactions
+    pairCount: BigInt!
+    tokenCount: BigInt!
+    txCount: BigInt!
+
+    # derived fields
+    onsenAnalytic: OnsenAnalytic!
+}
+
+type Pair @entity{
+    # pair id based on exchange name + token0 address + token1 address
+    id: ID!
+
+    # mirrored from the smart contract
+    token0: Token!
+    token1: Token!
+    reserve0: BigDecimal!
+    reserve1: BigDecimal!
+    totalSupply: BigDecimal!
+
+    # derived liquidity
+    reserveUSD: BigDecimal!
+
+    # Price in terms of the asset pair
+    token0Price: BigDecimal!
+    token1Price: BigDecimal!
+
+    # lifetime volume stats
+    volumeToken0: BigDecimal!
+    volumeToken1: BigDecimal!
+    volumeUSD: BigDecimal!
+    txCount: BigInt!
+
+    # creation stats
+    createdAtTimestamp: BigInt!
+    createdAtBlockNumber: BigInt!
+
+    liquidityProviderCount: BigInt!
+
+    # derived fields
+    # onsenAnalytic: OnsenAnalytic!
+    amm: Amm!
+    pairTimedData: [PairTimedData!]! @derivedFrom(field: "pair")
+}
+
+type PairTimedData @entity {
+    # pair id based on exchange name + time start + timeframe + token0 address + token1 address
+    id: ID!
+
+    # start timestamp
+    timeStart: BigInt!
+
+    # timeframe in minute
+    timeframe: Int!
+
+    pair: Pair!
+
+    # reserves
+    reserve0: BigDecimal!
+    reserve1: BigDecimal!
+
+    # derived liquidity
+    reserveUSD: BigDecimal!
+
+    # volume stats
+    timedVolumeToken0: BigDecimal!
+    timedVolumeToken1: BigDecimal!
+    timedVolumeUSD: BigDecimal!
+    timedTxCount: BigInt!
+
+    # derived fields
+    # onsenAnalytic: OnsenAnalytic!
+    amm: Amm!
+}
+
+type Token @entity{
+    # token id is based on exchange name + token address
+    id: ID!
+
+    # mirrored from the smart contract
+    symbol: String!
+    name: String!
+    decimals: BigInt!
+
+    # used for other stats like marketcap
+    totalSupply: BigInt!
+
+    # token specific volume
+    tradeVolume: BigDecimal!
+    tradeVolumeUSD: BigDecimal!
+
+    # transactions across all pairs
+    txCount: BigInt!
+
+    # liquidity across all pairs
+    totalLiquidity: BigDecimal!
+    totalLiquidityUSD: BigDecimal!
+
+    # derived fields
+    # onsenAnalytic: OnsenAnalytic!
+    amm: Amm!
+    tokenTimedData: [TokenTimedData!]! @derivedFrom(field: "token")
+}
+
+type TokenTimedData @entity{
+    # token id is based on exchange name + time start + timeframe + token address
+    id: ID!
+
+    # start timestamp
+    timeStart: BigInt!
+
+    # timeframe in minute
+    timeframe: Int!
+
+    token: Token!
+
+    # token specific volume for this timestamp
+    tradeVolume: BigDecimal!
+    tradeVolumeUSD: BigDecimal!
+
+    # liquidity stats (locked at the end of timeStart + timestamp)
+    totalLiquidityToken: BigDecimal!
+    totalLiquidityUSD: BigDecimal!
+
+    # dervied fields
+    # onsenAnalytic: OnsenAnalytic!
+    amm: Amm!
+}

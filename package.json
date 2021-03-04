@@ -12,6 +12,7 @@
     "codegen:lockup": "graph codegen subgraphs/lockup.yaml",
     "codegen:timelock": "graph codegen subgraphs/timelock.yaml",
     "codegen:dexcandles": "graph codegen subgraphs/dexcandles.yaml",
+    "codegen:onsenanalytic": "graph codegen subgraphs/onsenanalytic.yaml",
     "build": "graph build",
     "build:bar": "graph build subgraphs/bar.yaml",
     "build:exchange": "graph build subgraphs/exchange.yaml",
