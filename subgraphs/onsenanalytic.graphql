@@ -23,8 +23,11 @@ type OnsenAnalytic @entity{
 }
 
 type Amm @entity{
-    # exchange name
+    # factory address
     id: ID!
+
+    # exchange name
+    name: String!
 
     # total volume
     totalVolumeUSD: BigDecimal!
@@ -46,7 +49,7 @@ type Amm @entity{
 }
 
 type Pair @entity{
-    # pair id based on exchange name + token0 address + token1 address
+    # pair id based on exchange factory address + token0 address + token1 address
     id: ID!
 
     # mirrored from the smart contract
@@ -82,7 +85,7 @@ type Pair @entity{
 }
 
 type PairTimedData @entity {
-    # pair id based on exchange name + time start + timeframe + token0 address + token1 address
+    # pair id based on exchange factory address + token0 address + token1 address + time start + timeframe
     id: ID!
 
     # start timestamp
@@ -112,13 +115,13 @@ type PairTimedData @entity {
 }
 
 type Token @entity{
-    # token id is based on exchange name + token address
+    # token id is based on exchange factory address + token address
     id: ID!
 
     # mirrored from the smart contract
-    symbol: String!
-    name: String!
-    decimals: BigInt!
+    # symbol: String!
+    # name: String!
+    # decimals: BigInt!
 
     # used for other stats like marketcap
     totalSupply: BigInt!
@@ -141,7 +144,7 @@ type Token @entity{
 }
 
 type TokenTimedData @entity{
-    # token id is based on exchange name + time start + timeframe + token address
+    # token id is based on exchange factory address + token address + time start + timeframe
     id: ID!
 
     # start timestamp
