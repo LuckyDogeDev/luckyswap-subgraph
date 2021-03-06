@@ -31,9 +31,9 @@ import { Pair as PairContract } from '../generated/MasterChef/Pair'
 
 function getMasterChef(block: ethereum.Block): MasterChef {
   let masterChef = MasterChef.load(MASTER_CHEF_ADDRESS.toHex())
+  const contract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
 
   if (masterChef === null) {
-    const contract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
     masterChef = new MasterChef(MASTER_CHEF_ADDRESS.toHex())
     masterChef.bonusMultiplier = contract.BONUS_MULTIPLIER()
     masterChef.bonusEndBlock = contract.bonusEndBlock()
@@ -44,7 +44,6 @@ function getMasterChef(block: ethereum.Block): MasterChef {
     masterChef.startBlock = contract.startBlock()
     masterChef.sushi = contract.sushi()
     masterChef.sushiPerBlock = contract.sushiPerBlock()
-    masterChef.totalAllocPoint = contract.totalAllocPoint()
     // userInfo ...
     masterChef.poolCount = BIG_INT_ZERO
 
@@ -55,9 +54,11 @@ function getMasterChef(block: ethereum.Block): MasterChef {
     masterChef.slpWithdrawn = BIG_DECIMAL_ZERO
 
     masterChef.updatedAt = block.timestamp
-
-    masterChef.save()
   }
+
+  masterChef.totalAllocPoint = contract.totalAllocPoint()
+  masterChef.save()
+
 
   return masterChef as MasterChef
 }
@@ -76,7 +77,7 @@ export function getPool(id: BigInt, block: ethereum.Block): Pool {
     // Set relation
     pool.owner = masterChef.id
 
-    const poolInfo = masterChefContract.poolInfo(masterChef.poolCount)
+    const poolInfo = masterChefContract.poolInfo(id)
 
     pool.pair = poolInfo.value0
     pool.allocPoint = poolInfo.value1
@@ -179,17 +180,30 @@ export function getUser(pid: BigInt, address: Address, block: ethereum.Block): U
   return user as User
 }
 
-export function add(event: AddCall): void {
-  const masterChef = getMasterChef(event.block)
+export function add(call: AddCall): void {
+  const masterChef = getMasterChef(call.block)
+  const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
+  const poolLength = masterChefContract.poolLength().toI32()
 
-  log.info('Add pool #{}', [masterChef.poolCount.toString()])
+  log.info('Add pool id: {} allocPoint: {} withUpdate: {}', [
+      masterChef.poolCount.toString(),
+      call.inputs._allocPoint.toString(),
+      call.inputs._withUpdate ? 'true' : 'false',
+    ])
 
-  const pool = getPool(masterChef.poolCount, event.block)
+  const pool = getPool(masterChef.poolCount, call.block)
 
   // Update MasterChef.
-  masterChef.totalAllocPoint = masterChef.totalAllocPoint.plus(pool.allocPoint)
   masterChef.poolCount = masterChef.poolCount.plus(BIG_INT_ONE)
   masterChef.save()
+
+  for(let i = 0; i < poolLength; i++) {
+    const poolInfo = masterChefContract.poolInfo(BigInt.fromI32(i))
+    const pool = getPool(BigInt.fromI32(i), call.block)
+    pool.lastRewardBlock = poolInfo.value2
+    pool.accSushiPerShare = poolInfo.value3
+    pool.save()
+  }
 }
 
 // Calls
@@ -202,15 +216,26 @@ export function set(call: SetCall): void {
 
   const pool = getPool(call.inputs._pid, call.block)
 
-  const masterChef = getMasterChef(call.block)
+  const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
+  const poolInfo = masterChefContract.poolInfo(call.inputs._pid)
+  const poolLength = masterChefContract.poolLength().toI32()
 
   // Update masterchef
-  masterChef.totalAllocPoint = masterChef.totalAllocPoint.plus(call.inputs._allocPoint.minus(pool.allocPoint))
-  masterChef.save()
+  const masterChef = getMasterChef(call.block)
 
   // Update pool
+  pool.lastRewardBlock = poolInfo.value2
+  pool.accSushiPerShare = poolInfo.value3
   pool.allocPoint = call.inputs._allocPoint
   pool.save()
+
+  for(let i = 0; i < poolLength; i++) {
+    const poolInfo = masterChefContract.poolInfo(BigInt.fromI32(i))
+    const pool = getPool(BigInt.fromI32(i), call.block)
+    pool.lastRewardBlock = poolInfo.value2
+    pool.accSushiPerShare = poolInfo.value3
+    pool.save()
+  }
 }
 
 export function setMigrator(call: SetMigratorCall): void {
@@ -243,6 +268,17 @@ export function migrate(call: MigrateCall): void {
 
 export function massUpdatePools(call: MassUpdatePoolsCall): void {
   log.info('Mass update pools', [])
+
+  const masterChefContract = MasterChefContract.bind(MASTER_CHEF_ADDRESS)
+  const poolLength = masterChefContract.poolLength().toI32()
+
+  for (let i = 0; i < poolLength; i++) {
+    const poolInfo = masterChefContract.poolInfo(BigInt.fromI32(i))
+    const pool = getPool(BigInt.fromI32(i), call.block)
+    pool.lastRewardBlock = poolInfo.value2
+    pool.accSushiPerShare = poolInfo.value3
+    pool.save()
+  }
 }
 
 export function updatePool(call: UpdatePoolCall): void {
@@ -268,6 +304,7 @@ export function dev(call: DevCall): void {
 
 // Events
 export function deposit(event: Deposit): void {
+
   // if (event.params.amount == BIG_INT_ZERO) {
   //   log.info('Deposit zero transaction, input {} hash {}', [
   //     event.transaction.input.toHex(),
