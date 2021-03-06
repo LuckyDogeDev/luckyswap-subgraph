@@ -15,19 +15,18 @@ dataSources:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
-      file: ../src/onsenanalytic/mappings/onsenanalytic.ts
+      file: ../src/onsenanalytic/mappings/factory.ts
       entities:
+        - OnsenAnalytic
+        - Amm
         - Pair
+        - Token
       abis:
-        - name: ERC20
-          file: ../node_modules/@sushiswap/core/build/abi/ERC20.json
-        - name: ERC20SymbolBytes
-          file: ../abis/ERC20SymbolBytes.json
         - name: Factory
           file: ../node_modules/@sushiswap/core/build/abi/UniswapV2Factory.json
       eventHandlers:
         - event: PairCreated(indexed address,indexed address,address,uint256)
-          handler: pairCreated
+          handler: handleNewUniswapPair
 templates:
 - kind: ethereum/contract
   name: Pair

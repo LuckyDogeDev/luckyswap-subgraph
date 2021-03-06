@@ -10,11 +10,11 @@ export function getTokenTimedData(
     timeStart: BigInt, 
     timeframe: number
 ) : TokenTimedData {
-    let tokenTimedData = TokenTimedData.load(`${factoryAddress.toHexString()}-${tokenAddress.toHexString()}-${timeStart.toString()}-${timeframe}`)
+    let tokenTimedData = TokenTimedData.load(factoryAddress.toHexString()+"-"+tokenAddress.toHexString()+"-"+timeStart.toString()+"-"+timeframe)
     if (tokenTimedData === null) {
         let amm = getAmm(factoryAddress)
         let token = getToken(factoryAddress, tokenAddress)
-        tokenTimedData = new TokenTimedData(`${factoryAddress.toHexString()}-${tokenAddress.toHexString()}-${timeStart.toString()}-${timeframe}`)
+        tokenTimedData = new TokenTimedData(factoryAddress.toHexString()+"-"+tokenAddress.toHexString()+"-"+timeStart.toString()+"-"+timeframe)
         tokenTimedData.timeStart = timeStart
         tokenTimedData.timeframe = timeframe
         tokenTimedData.tradeVolume = BIG_DECIMAL_ZERO

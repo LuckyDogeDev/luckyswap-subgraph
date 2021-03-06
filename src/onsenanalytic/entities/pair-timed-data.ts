@@ -6,16 +6,16 @@ import { getPair } from "./pair"
 
 export function getPairTimedData(
     factoryAddress: Address, 
+    token0Address: Address, 
     token1Address: Address, 
-    token2Address: Address, 
     timeStart: BigInt, 
     timeframe: number
     ): PairTimedData {
-    let pairTimedData = PairTimedData.load(`${factoryAddress.toHexString()}-${token1Address.toHexString()}-${token2Address.toHexString()}-${timeStart.toString()}-${timeframe}`)
+    let pairTimedData = PairTimedData.load(factoryAddress.toHexString()+"-"+token0Address.toHexString()+"-"+token1Address.toHexString()+"-"+timeStart.toString()+"-"+timeframe)
     if (pairTimedData === null) {
         let amm = getAmm(factoryAddress)
-        let pair = getPair(factoryAddress, token1Address, token2Address)
-        pairTimedData = new PairTimedData(`${factoryAddress.toHexString()}-${token1Address.toHexString()}-${token2Address.toHexString()}-${timeStart.toString()}-${timeframe}`)
+        let pair = getPair(factoryAddress, token0Address, token1Address)
+        pairTimedData = new PairTimedData(factoryAddress.toHexString()+"-"+token0Address.toHexString()+"-"+token1Address.toHexString()+"-"+timeStart.toString()+"-"+timeframe)
         pairTimedData.timeStart = timeStart
         pairTimedData.timeframe = timeframe
         pairTimedData.reserve0 = BIG_DECIMAL_ZERO

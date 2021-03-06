@@ -93,7 +93,6 @@ export const UNISWAP_SUSHI_ETH_PAIR_ADDRESS = Address.fromString('0xce84867c3c02
 
 export const UNISWAP_SUSHI_USDT_PAIR_ADDRESS = Address.fromString('0xe3ffab89e53422f468be955e7011932efe80aa26')
 
-export const exchangeMapping = {
-  [FACTORY_ADDRESS.toHexString()]: "Sushiswap",
-  [UNISWAP_FACTORY_ADDRESS.toHexString()]: "Uniswap"
-}
+export const exchangeMapping = new Map<string, string>()
+exchangeMapping.set(FACTORY_ADDRESS.toHexString(), "Sushiswap")
+exchangeMapping.set(UNISWAP_FACTORY_ADDRESS.toHexString(), "Uniswap")

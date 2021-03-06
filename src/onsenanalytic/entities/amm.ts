@@ -8,7 +8,7 @@ export function getAmm(factoryAddress: Address): Amm {
     if (amm === null) {
         let onsenAnalytic = getOnsenAnalytic()
         amm = new Amm(factoryAddress.toHexString())
-        amm.name = exchangeMapping[factoryAddress.toHexString()]
+        amm.name = exchangeMapping.get(factoryAddress.toHexString())
         amm.pairCount = BIG_INT_ZERO
         amm.totalVolumeUSD = BIG_DECIMAL_ZERO
         amm.totalLiquidityUSD = BIG_DECIMAL_ZERO

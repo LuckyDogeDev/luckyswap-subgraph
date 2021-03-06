@@ -63,8 +63,8 @@ type Pair @entity{
     reserveUSD: BigDecimal!
 
     # Price in terms of the asset pair
-    token0Price: BigDecimal!
-    token1Price: BigDecimal!
+    # token0Price: BigDecimal!
+    # token1Price: BigDecimal!
 
     # lifetime volume stats
     volumeToken0: BigDecimal!
