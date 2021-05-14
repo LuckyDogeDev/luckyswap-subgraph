@@ -34,7 +34,7 @@ export const SUSHI_BAR_ADDRESS = Address.fromString('0x0000000000000000000000000
 
 export const SUSHI_MAKER_ADDRESS = Address.fromString('0x0000000000000000000000000000000000000000')
 
-export const SUSHI_TOKEN_ADDRESS = Address.fromString('0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a')
+export const SUSHI_TOKEN_ADDRESS = Address.fromString('0x0000000000000000000000000000000000000000')
 
 export const SUSHI_USDT_PAIR_ADDRESS = Address.fromString('0x0000000000000000000000000000000000000000')
 
@@ -46,11 +46,11 @@ export const SUSHI_DISTRIBUTOR_ADDRESS = Address.fromString('0x00000000000000000
 
 export const NULL_CALL_RESULT_VALUE = '0x0000000000000000000000000000000000000000000000000000000000000001'
 
-export const USDC_WETH_PAIR = '0x853ee4b2a13f8a742d64c8f088be7ba2131f670d'
+export const USDC_WETH_PAIR = '0x6c78b8edf2f47f9a6836703fad855c8329b856e3'
 
-export const DAI_WETH_PAIR = '0x4a35582a710e1f4b2030a3f826da20bfb6703c09'
+export const DAI_WETH_PAIR = '0xfdba79041f9706fa2539452d87f3329d755142ef'
 
-export const USDT_WETH_PAIR = '0xf6422b997c7f54d1c6a6e103bcb1499eea0a7046'
+export const USDT_WETH_PAIR = '0xa07b0b86bc2c5ccb65b44d2bf9ab0d2babb614d7'
 
 export const SUSHI_USDT_PAIR = '0x0000000000000000000000000000000000000000'
 
@@ -60,11 +60,11 @@ export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString('0')
 // minimum liquidity for price to get tracked
 export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString('5')
 
-export const WETH_ADDRESS = Address.fromString('0x7ceb23fd6bc0add59e62ac25578270cff1b9f619')
+export const WETH_ADDRESS = Address.fromString('0x8f8526dbfd6e38e3d8307702ca8469bae6c56c15')
 
 export const SUSHISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString('0x0000000000000000000000000000000000000000')
 
-export const USDT_ADDRESS = Address.fromString('0xc2132d05d31c914a87c6611c10748aeb04b58e8f')
+export const USDT_ADDRESS = Address.fromString('0x382bb369d343125bfb2117af9c149795c6c65c50')
 
 export const MASTER_CHEF_START_BLOCK = BigInt.fromI32(10750000)
 
@@ -80,9 +80,9 @@ export const UNISWAP_SUSHI_USDT_PAIR_ADDRESS = Address.fromString('0x00000000000
 
 
 // Bentobox constants
-export const BENTOBOX_ADDRESS = Address.fromString('0xf5bce5077908a1b7370b9ae04adc565ebd643966')
+export const BENTOBOX_ADDRESS = Address.fromString('0x0000000000000000000000000000000000000000')
 
-export const KASHI_PAIR_MEDIUM_RISK_MASTER_ADDRESS = Address.fromString('0x2cba6ab6574646badc84f0544d05059e57a5dc42')
+export const KASHI_PAIR_MEDIUM_RISK_MASTER_ADDRESS = Address.fromString('0x0000000000000000000000000000000000000000')
 
 export const BENTOBOX_DEPOSIT = 'deposit'
 
@@ -106,7 +106,7 @@ export const PAIR_REPAY = 'repay'
 
 
 // MiniChef
-export const MINI_CHEF_ADDRESS = Address.fromString('0x0769fd68dfb93167989c6f7254cd0d766fb2841f')
+export const MINI_CHEF_ADDRESS = Address.fromString('0x0000000000000000000000000000000000000000')
 
 export const ACC_SUSHI_PRECISION = BigInt.fromString('1000000000000')
 

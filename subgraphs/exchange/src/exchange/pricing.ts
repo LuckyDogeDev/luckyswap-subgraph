@@ -96,6 +96,60 @@ export function getEthPrice(block: ethereum.Block = null): BigDecimal {
     return BIG_DECIMAL_ZERO
   }
 
+  // FTM version
+  // USDC -> token0
+  // DAI -> token1
+  // fUSDT (usdt) -> token0
+  /*if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
+    const totalLiquidityETH = daiPair.reserve0.plus(usdcPair.reserve1).plus(usdtPair.reserve1)
+    const daiWeight = daiPair.reserve0.div(totalLiquidityETH)
+    const usdcWeight = usdcPair.reserve1.div(totalLiquidityETH)
+    const usdtWeight = usdtPair.reserve1.div(totalLiquidityETH)
+    return daiPair.token1Price
+      .times(daiWeight)
+      .plus(usdcPair.token0Price.times(usdcWeight))
+      .plus(usdtPair.token0Price.times(usdtWeight))
+    // dai and USDC have been created
+  } else if (daiPair !== null && usdcPair !== null) {
+    const totalLiquidityETH = daiPair.reserve0.plus(usdcPair.reserve1)
+    const daiWeight = daiPair.reserve0.div(totalLiquidityETH)
+    const usdcWeight = usdcPair.reserve1.div(totalLiquidityETH)
+    return daiPair.token1Price.times(daiWeight).plus(usdcPair.token0Price.times(usdcWeight))
+    // USDC is the only pair so far
+  } else if (usdcPair !== null) {
+    return usdcPair.token0Price
+  } else {
+    log.warning('No eth pair...', [])
+    return BIG_DECIMAL_ZERO
+  }*/
+
+  // BSC version
+  // BUSD (usdc) -> token1
+  // fUSDT (dai) -> token0
+  // USDT -> token0
+  /*if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
+    const totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve0).plus(usdtPair.reserve1)
+    const daiWeight = daiPair.reserve1.div(totalLiquidityETH)
+    const usdcWeight = usdcPair.reserve0.div(totalLiquidityETH)
+    const usdtWeight = usdtPair.reserve1.div(totalLiquidityETH)
+    return daiPair.token0Price
+      .times(daiWeight)
+      .plus(usdcPair.token1Price.times(usdcWeight))
+      .plus(usdtPair.token0Price.times(usdtWeight))
+    // dai and USDC have been created
+  } else if (daiPair !== null && usdcPair !== null) {
+    const totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve1)
+    const daiWeight = daiPair.reserve1.div(totalLiquidityETH)
+    const usdcWeight = usdcPair.reserve0.div(totalLiquidityETH)
+    return daiPair.token0Price.times(daiWeight).plus(usdcPair.token1Price.times(usdcWeight))
+    // USDC is the only pair so far
+  } else if (usdcPair !== null) {
+    return usdcPair.token1Price
+  } else {
+    log.warning('No eth pair...', [])
+    return BIG_DECIMAL_ZERO
+  }*/
+
   // Matic version
   // DAI -> token1
   // USDT -> token1

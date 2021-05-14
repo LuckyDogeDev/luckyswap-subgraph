@@ -33,21 +33,31 @@ export const BLACKLIST_EXCHANGE_VOLUME: string[] = [
 // FTM WHITELIST
 /*export const WHITELIST: string[] = [
   '0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83', // WFTM
-  '0xad84341756bf337f5a0164515b1f6f993d194e1f', // fUSD
   '0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e', // DAI
-  '0x74b23882a30290451a17c44f4f05243b6b58c76d', // ETH
+  '0x049d68029688eabf473097a2fc38ef61633a3c7a', // fUSDT
   '0x04068da6c83afcfa0e13ba15a6696662335d5b75', // USDC
+  '0xad84341756bf337f5a0164515b1f6f993d194e1f', // fUSD
+  '0x74b23882a30290451a17c44f4f05243b6b58c76d', // ETH
 ]*/
 
-// Matic WHITELIST
+// okex chain WHITELIST
 export const WHITELIST: string[] = [
+  '0x8f8526dbfd6e38e3d8307702ca8469bae6c56c15', // wOKT
+  '0xdf54b6c6195ea4d948d03bfd818d365cf175cfc2', // OKB
+  '0xfdba79041f9706fa2539452d87f3329d755142ef', // DAIK
+  '0x382bb369d343125bfb2117af9c149795c6c65c50', // USDT
+  '0xc946daf81b08146b1c7a8da2a851ddf2b3eaaf85', // USDC
+]
+
+// Matic WHITELIST
+/*export const WHITELIST: string[] = [
   '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619', // WETH
   '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270', // WMATIC
   '0x2791bca1f2de4661ed88a30c99a7a9449aa84174', // USDC
   '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063', // DAI
   '0xc2132d05d31c914a87c6611c10748aeb04b58e8f', // USDT
   '0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6', // WBTC
-]
+]*/
 
 // xDAI WHITELIST
 /*export const WHITELIST: string[] = [
@@ -64,9 +74,8 @@ export const WHITELIST: string[] = [
 // BSC WHITELIST
 /*export const WHITELIST: string[] = [
   '0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c', // WBNB
-  '0x55d398326f99059ff775485246999027b3197955', // USDT
   '0xe9e7cea3dedca5984780bafc599bd69add087d56', // BUSD
-  '0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3', // DAI
   '0x049d68029688eabf473097a2fc38ef61633a3c7a', // fUSDT
+  '0x55d398326f99059ff775485246999027b3197955', // USDT
   '0x2170ed0880ac9a755fd29b2688956bd959f933f8', // ETH
 ]*/
