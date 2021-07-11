@@ -24,6 +24,10 @@
   "kashi_pair_medium_risk_master_address": "0x2cba6ab6574646badc84f0544d05059e57a5dc42",
   "minimum_usd_threshold_new_pairs": "3000",
   "minimum_liquidity_threshold_eth": "5",
+  "bar": {
+    "address": "0x8798249c2e607446efb7ad49ec89dd1865ff4272",
+    "startBlock": "10801571"
+  },
   "factory": {
     "address": "0xc0aee478e3658e2610c5f7a4a2e1777ce9e4f2ac",
     "startBlock": "10794229"

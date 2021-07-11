@@ -8,9 +8,9 @@ dataSources:
     name: SushiBar
     network: {{ network }}
     source:
-      address: '{{ address }}'
+      address: '{{ bar.address }}'
       abi: Bar
-      startBlock: {{ startBlock }}
+      startBlock: {{ bar.startBlock }}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
