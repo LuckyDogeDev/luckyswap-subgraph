@@ -20,6 +20,11 @@
         "deploy:bsc": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/bsc-exchange subgraph.yaml",
         "deploy:okex": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/okex-exchange subgraph.yaml",
 
+        "deploy-studio:mainnet": "graph deploy --studio sushi---mainnet-exchange",
+        "deploy-studio:matic": "graph deploy --studio sushi---matic-exchange",
+        "deploy-studio:harmony": "graph deploy --studio sushi---harmony-exchange",
+        "deploy-studio:xdai": "graph deploy --studio sushi---xdai-exchange",
+
         "prepare:bsc": "mustache ../../config/bsc.json template.yaml > subgraph.yaml",
         "prepare:fantom": "mustache ../../config/fantom.json template.yaml > subgraph.yaml",
         "prepare:goerli": "mustache ../../config/goerli.json template.yaml > subgraph.yaml",
